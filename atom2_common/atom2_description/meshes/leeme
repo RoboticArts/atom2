@@ -1,0 +1,16 @@
+bases -> Se encuentran los diferentes chasis del robot
+structures -> Se encuentran los elementos que se pueden añadir al robot como lásers,cámaras u otras estructuras metálicas
+wheels -> Se encuentran los diferentes tipos de rueda que puede llevar el robot
+
+
+
+Al activar el ModelRobot en RVIZ se muestra el siguiente mensaje:
+
+[WARNING]  The STL file 'package://atom2_description/meshes/wheels/right_wheel.stl' is malformed. It starts with the word 'solid', indicating that it's an ASCII STL file, but it does not contain the word 'endsolid' so it is either a malformed ASCII STL file or it is actually a binary STL file. Trying to interpret it as a binary STL file instead.
+
+Solución: https://gist.github.com/awesomebytes/2595b1dc41831c804a4f
+
+En la carpeta donde se encuentran los STL ejecutar: sed -i 's/^solid/robot/' *
+Asegurarse de que no hay carpetas u otros directorios.
+
+

@@ -1,0 +1,50 @@
+
+  joint_state_controller:
+    type: "joint_state_controller/JointStateController"
+    publish_rate: 100
+
+  velocity_controller:
+    type: "diff_drive_controller/DiffDriveController"
+    #left_wheel and right_wheel names are overwrited in atom2_control.launch file
+    left_wheel: ['front_left_wheel_joint', 'rear_left_wheel_joint']
+    right_wheel: ['front_right_wheel_joint', 'rear_right_wheel_joint']
+    publish_rate: 50
+    pose_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
+    twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
+    cmd_vel_timeout: 0.25
+ 
+    #base_frame_id and odom_frame_id names are overwrited in atom2_control.launch file
+    base_frame_id: base_footprint  #Por defecto es base_link, al colocar base_footprint añade una transformada entre base_footprint y base_link
+    odom_frame_id: odom  #Por defecto es odom
+
+    # Odometry fused with IMU is published by robot_localization, so
+    # no need to publish a TF based on encoders alone.
+    enable_odom_tf: true  #Habilita que se use odom como frame padre (odom -> base footprint -> base link -> ...)
+
+
+
+    # Wheel separation and radius
+    wheel_separation : 0.295
+    # this is empirical value, but is not corresponding with the physical value 
+    wheel_radius :  0.06006  #0.164 # Reducir el radio de la rueda a 0.06006 hace que el robot gire mas rapido
+
+    # Wheel separation and radius multipliers
+    wheel_separation_multiplier: 1.0 # default: 1.0
+    wheel_radius_multiplier    : 1.0 # default: 1.0
+
+    # Velocity and acceleration limits
+    # Whenever a min_* is unspecified, default to -max_*
+    linear:
+      x:
+        has_velocity_limits    : true
+        max_velocity           : 3.0   # m/s
+        min_velocity           : -3.0   # m/s
+        has_acceleration_limits: true
+        max_acceleration       : 6.0   # m/s^2
+        min_acceleration       : -6.0   # m/s^2
+    angular:
+      z:
+        has_velocity_limits    : true
+        max_velocity           : 6.0   # rad/s 
+        has_acceleration_limits: true
+        max_acceleration       : 6.0   # rad/s^2

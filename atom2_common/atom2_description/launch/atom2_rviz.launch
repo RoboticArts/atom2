@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- <arg name="version" default="rb1_base_std.urdf.xacro" /> -->
+  <arg name="prefix" default="robot_0_"/>
+  <arg name="rviz_config" default="$(find atom2_gazebo)/rviz/atom2_view_robot_model.rviz"/>
+  
+
+  <arg name="x" default="1.0" />
+  <arg name="y" default="1.0" />
+  <arg name="z" default="1.0" />
+  <arg name="urdf_robot_file" default="$(find atom2_description)/urdf/atom2.urdf" />
+  <arg name="robot_name" default="atom2" />
+ 
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" command="cat $(arg urdf_robot_file)" />
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+  args="-urdf -x $(arg x) -y $(arg y) -z $(arg z)  -model $(arg robot_name) -param robot_description"/>
+-
+
+  <!-- send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="TRUE"/>
+  </node>
+
+  <!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+    <!-- <remap from="/joint_states" to="/atom2/joint_states" /> -->
+  </node>
+
+
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/> 
+  
+  	 
+</launch>

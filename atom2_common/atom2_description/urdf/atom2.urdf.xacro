@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+
+<robot name = "atom2" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+
+
+<!-- ===================   atom2_std.urdf.xacro en carpeta robots ================ -->
+
+
+<!--
+  Legacity mode: https://github.com/ros-simulation/gazebo_ros_pkgs/pull/637
+-->
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS> 
+    </plugin>
+  </gazebo>
+
+
+
+
+
+
+
+
+
+
+
+  <link name="kinect">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+          <mesh filename="package://atom2_description/meshes/accessories/kinect.dae" />
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://atom2_description/meshes/accessories/kinect.dae" />
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="0.1" x="0.1" y="0.1" z="0.1" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" /> 
+    </inertial>
+  </link>
+
+
+  <joint name="kinect_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="-0.22247 0 0.68823" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="kinect"/>
+  </joint>
+
+
+  <link name="kinect_support_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+          <mesh filename="package://atom2_description/meshes/accessories/kinect_support.dae" />
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://atom2_description/meshes/accessories/kinect_support.dae" />
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="0.1" x="0.1" y="0.1" z="0.1" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" /> 
+    </inertial>
+  </link>
+
+
+  <joint name="kinect_support_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="-0.23 0 0.24" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="kinect_support_link"/>
+  </joint>
+
+
+
+
+
+  <link name="camera">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+          <mesh filename="package://atom2_description/meshes/accessories/orbbec_astra_camera.dae" />
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://atom2_description/meshes/accessories/orbbec_astra_camera.dae" />
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="0.1" x="0.1" y="0.1" z="0.1" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" /> 
+    </inertial>
+  </link>
+
+
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0.31938 0 0.08801" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="camera"/>
+  </joint>
+
+
+  <gazebo reference="camera">
+    <sensor type="camera" name="camera1">
+    <!-- <pose>10 10 10 1.57 0 0</pose> -->
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>atom2/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+</gazebo>
+
+<!-- - - - - - - - - - - - - - RPLIDAR SENSOR - - - - - - - - - - - - - -->
+
+  <xacro:macro name ="sensor_rplidar_A1M8" params="prefix *origin">
+
+    <link name="${prefix}_link">
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+      <box size="0.1 0.1 0.1"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://atom2_description/meshes/accessories/rplidar_A1_M8.dae"/>
+        </geometry>
+      </visual>
+
+      <inertial>
+        <mass value="1e-5" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <axis xyz="0 1 0" />
+      <xacro:insert_block name="origin" />
+      <parent link="base_link"/>
+      <child link="${prefix}_link"/>
+    </joint>
+
+    <xacro:sensor_rplidar_A1M8_gazebo/>
+
+  </xacro:macro>
+
+
+  <xacro:macro name="sensor_rplidar_A1M8_gazebo">
+
+    <gazebo reference="${prefix}_link">
+      <sensor type="ray" name="${prefix}_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>40</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>720</samples>
+              <resolution>1</resolution>
+              <min_angle>-1.570796</min_angle>
+              <max_angle>1.570796</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>30.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>->
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+          <topicName>/rplidar/scan</topicName>
+          <frameName>${prefix}_link</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+
+
+  <xacro:sensor_rplidar_A1M8 prefix="rplidar_A1M8">
+    <origin xyz="0.09286 0 0.28275" rpy="0 0 0"/>
+  </xacro:sensor_rplidar_A1M8>
+
+
+
+</robot>

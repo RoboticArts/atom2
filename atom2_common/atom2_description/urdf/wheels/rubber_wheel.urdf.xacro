@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<robot name="wheels" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <!-- - - - - - - - - - - - - - WHEEL PARAMETERS - - - - - - - - - - - - - -->
+
+
+  <xacro:property name = "wheel_mass" value = "2.2" />
+
+
+  <!-- - - - - - - - - - - - - - RIGHT & LEFT INERTIA - - - - - - - - - - - - - -->
+  
+  <xacro:macro name="inertia_selector" params = "wheel">
+
+    <xacro:if value = "${wheel.endswith('right')}">
+      <inertia ixx="0.00383527361" ixy="1.01e-8" ixz="3.92e-9" iyy="0.00607373494" iyz="2.379e-8" izz="0.00383527552" />
+    </xacro:if>
+
+    <xacro:if value = "${wheel.endswith('left')}">
+      <inertia ixx="0.00383527361" ixy="1.01e-8" ixz="-3.92e-9" iyy="0.00607373494" iyz="-2.379e-8" izz="0.00383527552" />
+    </xacro:if>
+
+  </xacro:macro>
+
+
+<!-- - - - - - - - - - - - - - RIGHT & LEFT MESH - - - - - - - - - - - - - -->
+
+  <xacro:macro name="mesh_selector" params = "wheel extension">
+
+    <xacro:if value = "${wheel.endswith('right')}">
+      <mesh filename="package://atom2_description/meshes/wheels/right_wheel${extension}" />
+    </xacro:if>
+
+    <xacro:if value = "${wheel.endswith('left')}">
+      <mesh filename="package://atom2_description/meshes/wheels/left_wheel${extension}" />
+    </xacro:if>
+
+  </xacro:macro>
+
+
+<!-- - - - - - - - - - - - - - WHEEL DEFINITION - - - - - - - - - - - - - -->
+
+  <xacro:macro name ="rubber_wheel" params = "prefix parent *origin">
+
+    <!-- wheel & base joint-->
+    <joint name="${prefix}_wheel_joint" type="continuous">
+      <xacro:insert_block name ="origin" />
+      <parent link="${parent}" />
+      <child link="${prefix}_wheel_link" />
+      <axis xyz="0 1 0" />
+    </joint>
+
+    <!-- wheel link -->
+    <link name="${prefix}_wheel_link">
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="${wheel_mass}" />
+        <inertia_selector wheel = "${prefix}" />
+      </inertial>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh_selector wheel = "${prefix}"  extension = ".dae" />
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh_selector wheel = "${prefix}" extension = "_simple.stl" /> 
+        </geometry>
+      </collision>
+
+    </link>
+
+    <!-- wheel transmission -->
+    <transmission name="${prefix}_wheel_joint_trans" type="SimpleTransmission">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="${prefix}_wheel_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <joint name="${prefix}_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+    </transmission>
+
+    <!-- wheel friction -->
+    <gazebo reference="${prefix}_wheel_link">
+      <mu1 value="0.7"/>
+      <mu2 value="0.7"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0"/>
+    </gazebo>
+
+
+  </xacro:macro>
+
+
+</robot>

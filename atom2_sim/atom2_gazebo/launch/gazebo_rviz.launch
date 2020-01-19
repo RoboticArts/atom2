@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+
+
+	<!-- - - - - - - - - - - -  GENERAL ARGUMENTS - - - - - - - - - - -->
+
+	<!-- Robot world -->
+	<arg name="world_name"       default="worlds/empty.world"/>
+
+	<!-- Robot RVIZ -->
+	<arg name="launch_rviz" 	 default="false" />
+
+
+
+	<!-- - - - - - - - - - - -  LOAD GAZEBO WORLD - - - - - - - - - - -->
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name"    value="$(arg world_name)"/>
+		<arg name="debug" 		  value="false" />
+		<arg name="paused" 		  value="false"/>
+		<arg name="use_sim_time"  value="true"/>
+		<arg name="headless" 	  value="false"/> 
+		<arg name="gui" 		  value="true"/>
+	</include>
+
+	<!-- - - - - - - - - - - - -  LAUNCH RVIZ - - - - - - - - - - - - -->	
+
+	<group if="$(arg launch_rviz)"> 
+
+		<arg name="rviz_config" default="$(find atom2_gazebo)/rviz/atom2_view_robot_model.rviz"/> 
+		
+		<node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" required="true"/>
+	
+	</group>
+
+
+</launch>

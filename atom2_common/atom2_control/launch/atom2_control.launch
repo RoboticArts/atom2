@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<!-- - - - - - - - - - - -  GENERAL ARGUMENTS - - - - - - - - - - -->
+
+	<!-- Robot properties -->
+	<arg name="robot_name"		 default="atom2" />
+	<arg name="base_footprint"   default="$(arg robot_name)_base_footprint" />	
+	<arg name="base_link"		 default="$(arg robot_name)_base_link" />	
+	<arg name="odom"			 default="$(arg robot_name)_odom" />
+
+
+
+	<!-- Load joint controller configurations from YAML file to parameter server -->
+	<rosparam file="$(find atom2_control)/config/atom2_diffdrive_control.yaml" command="load"/>
+
+	<rosparam param="velocity_controller/left_wheel"    subst_value="True"> ['$(arg robot_name)_front_left_wheel_joint', '$(arg robot_name)_rear_left_wheel_joint']  </rosparam>
+	<rosparam param="velocity_controller/right_wheel"   subst_value="True"> ['$(arg robot_name)_front_right_wheel_joint','$(arg robot_name)_rear_right_wheel_joint'] </rosparam>
+	<rosparam param="velocity_controller/base_frame_id" subst_value="True">  '$(arg base_footprint)' </rosparam>
+	<rosparam param="velocity_controller/odom_frame_id" subst_value="True">  '$(arg odom)'           </rosparam>
+
+	<!--
+	<rosparam file="$(find atom2_control)/config/ur3_controller.yaml" command="load"/>  
+  	<node name="arm_controller_spawner" pkg="controller_manager" type="spawner" args="arm_controller" respawn="false" output="screen"/>
+	-->
+
+	<!-- Load the controllers -->
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" 
+		output="screen" args="
+						velocity_controller
+						joint_state_controller
+						">
+	</node>
+
+	<!-- Mux for different cmd_vel topics 
+	<node pkg="twist_mux" type="twist_mux" name="twist_mux">
+
+		<rosparam command="load" file="$(find atom2_control)/config/twist_mux.yaml" />
+		<remap from="cmd_vel_out" to="velocity_controller/cmd_vel" />
+    
+	</node>
+-->
+
+</launch>

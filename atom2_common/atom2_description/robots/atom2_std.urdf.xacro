@@ -1,0 +1,257 @@
+<?xml version="1.0"?>
+<robot name="atom2" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- - - - - - - - - - - - - - IMPORTANT NOTES - - - - - - - - - - - - 
+    
+    - base_link is joined to base_footprint
+    - The rest of the links are joined to base_link
+    
+    - The structure of this document is as follows:
+          
+          - gazebo plugins:
+                - gazebo_ros_control
+
+          - atom2_base.urdf.xacro:
+                    - base_footprint 
+                    - base_link
+                    - central_cube
+
+          - rubber_wheel.urdf.xacro:
+                  - rear_right_wheel_link
+                  - rear_left_wheel_link
+                  - front_right_wheel_link
+                  - front_left_wheel_link
+
+          - rplidar_A1M8.urdf.xacro
+          - kinect.urdf.urdf.xacro
+          - kinect_support.urdf.xacro
+          - orbbec_astra.urdf.xacro
+            
+-->
+
+<!-- - - - - - - - - - - - - - GLOBAL ARGUMENTS - - - - - - - - - - - - - -->
+
+  <xacro:arg name="base_footprint"    default="$(arg robot_name)_base_footprint" />
+  <xacro:arg name="base_link"         default="$(arg robot_name)_base_link" />
+
+  <xacro:arg name="robot_name"        default="atom2" />  
+  <xacro:arg name="use_rplidar_A1M8"  default="true" />
+  <xacro:arg name="use_orbbec_astra"  default="true" />
+  <xacro:arg name="use_kinect"        default="true" /> 
+  <xacro:arg name="use_central_cube"  default="true" />
+
+
+<!-- - - - - - - - - - - - - - XACRO INCLUDES - - - - - - - - - - - - - -->
+
+
+  <!-- Import atom2 base elements -->
+  <xacro:include filename="$(find atom2_description)/urdf/bases/atom2_base.urdf.xacro" />
+
+  <!-- Import atom2 wheels -->
+  <xacro:include filename="$(find atom2_description)/urdf/wheels/rubber_wheel.urdf.xacro" />
+
+  <!-- Import atom2 accessories: rplidar A1M8 -->
+  <xacro:include filename="$(find atom2_description)/urdf/accesories/rplidar_A1M8.urdf.xacro" />
+
+  <!-- Import atom2 accessories: kinect camera -->
+  <xacro:include filename="$(find atom2_description)/urdf/accesories/kinect.urdf.xacro" />
+
+  <!-- Import atom2 accessories: kinect support accesory -->
+  <xacro:include filename="$(find atom2_description)/urdf/accesories/kinect_support.urdf.xacro" />
+
+  <!-- Import atom2 accessories: orbbec astra camera -->
+  <xacro:include filename="$(find atom2_description)/urdf/accesories/orbbec_astra.urdf.xacro" />
+
+
+<!-- - - - - - - - - - - - - - GENERAL GAZEBO PLUGINS - - - - - - - - - - -->
+
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS> 
+    </plugin>
+  </gazebo>
+
+
+<!-- - - - - - - - - - - - - - - BASE DEFINITION  - - - - - - - - - - - - - -->
+
+ 
+  <!-- base_footprint definition -->
+  <xacro:base_footprint link_name = "$(arg base_footprint)"/>
+
+  <!-- base_link definition -->
+  <xacro:base_link link_name = "$(arg base_link)" />
+
+  <!-- footprint to base joint -->
+  <xacro:base_footprint_joint prefix = "$(arg robot_name)" parent ="$(arg base_footprint)" child = "$(arg base_link)" >
+    <origin xyz="0 0 0.213" rpy="0 0 0" />
+  </xacro:base_footprint_joint>
+
+  <!-- Cube placed in the rotational center of the robot for debug purposes -->
+  <xacro:if value="$(arg use_central_cube)">
+    <xacro:central_cube prefix="$(arg robot_name)" parent ="$(arg base_link)" />
+  </xacro:if>
+ 
+ 
+
+<!-- - - - - - - - - - - - - - WHEELS DEFINITION  - - - - - - - - - - - - - -->
+
+
+  <!-- Wheel parameters -->
+	<xacro:property name="wheel_offset_x" value="0.14799" />   
+	<xacro:property name="wheel_offset_y" value="0.1575" />
+	<xacro:property name="wheel_offset_z" value="0.10549" />
+
+  <!-- The "prefix" param must end in "right" or "left" to differentiate the wheels in "rubber_wheel" xacro file -->
+  <xacro:rubber_wheel prefix="$(arg robot_name)_rear_right" parent ="$(arg base_link)">
+  	<origin xyz="-${wheel_offset_x} -${wheel_offset_y} -${wheel_offset_z}" rpy="0 0 0"/>
+  </xacro:rubber_wheel>
+
+  <xacro:rubber_wheel prefix="$(arg robot_name)_rear_left" parent ="$(arg base_link)">
+  	<origin xyz="-${wheel_offset_x} ${wheel_offset_y} -${wheel_offset_z}" rpy="0 0 0"/>
+  </xacro:rubber_wheel>
+
+  <xacro:rubber_wheel prefix="$(arg robot_name)_front_right" parent ="$(arg base_link)">
+  	<origin xyz="${wheel_offset_x} -${wheel_offset_y} -${wheel_offset_z}" rpy="0 0 0"/>
+  </xacro:rubber_wheel>
+
+  <xacro:rubber_wheel prefix="$(arg robot_name)_front_left" parent ="$(arg base_link)">
+  	<origin xyz="${wheel_offset_x} ${wheel_offset_y} -${wheel_offset_z}" rpy="0 0 0"/>
+  </xacro:rubber_wheel>
+ 
+
+
+<!-- - - - - - - - - - - - - - ACCESORIES DEFINITION  - - - - - - - - - - - - - -->
+ 
+
+  <!-- rplidar A1M8 lidar sensor -->
+  <xacro:if value="$(arg use_rplidar_A1M8)">
+
+    <xacro:sensor_rplidar_A1M8 prefix="$(arg robot_name)_rplidar_A1M8" parent ="$(arg base_link)">
+      <origin xyz="0.09286 0 0.28275" rpy="0 0 0"/>
+    </xacro:sensor_rplidar_A1M8>
+
+  </xacro:if>
+
+
+  <!-- kinect camera with support structure -->
+  <xacro:if value="$(arg use_kinect)">
+
+    <xacro:sensor_kinect prefix="$(arg robot_name)_kinect" parent ="$(arg base_link)">
+      <origin xyz="-0.22247 0 0.68823" rpy="0 0 0"/>
+    </xacro:sensor_kinect>
+
+    <xacro:structure_kinect_support prefix="$(arg robot_name)_kinect_support" parent ="$(arg base_link)">
+      <origin xyz="-0.23 0 0.24" rpy="0 0 0"/>
+    </xacro:structure_kinect_support>
+
+  </xacro:if>
+
+
+  <!-- orbbec astra camera sensor -->
+  <xacro:if value="$(arg use_orbbec_astra)">
+    
+    <xacro:sensor_orbbec_astra prefix="$(arg robot_name)_orbbec_astra" parent ="$(arg base_link)">
+      <origin xyz="0.31938 0 0.08801" rpy="0 0 0"/>
+    </xacro:sensor_orbbec_astra>
+  
+  </xacro:if>
+
+ 
+<!-- - - - - - - - - - - - - - UR3 ARM IMPLEMENTATION  - - - - - - - - - - - - - -->
+
+<!--
+  <xacro:include filename="$(find ur_description)/urdf/ur3.urdf.xacro" />
+
+
+    <xacro:ur3_robot prefix="arm_"  joint_limited="true"
+			shoulder_pan_lower_limit="-3.14" shoulder_pan_upper_limit="3.14"
+			wrist_3_lower_limit="3.14" wrist_3_upper_limit="3.14"
+      transmission_hw_interface= "hardware_interface/PositionJointInterface" > 
+    </xacro:ur3_robot>
+
+    <joint name="arm_base_joint" type="fixed">
+		<origin xyz="-0.23 0 0.21275" rpy="0 0 0" />
+		<parent link="atom2_base_link" />
+		<child link="arm_base_link" />
+	  </joint>
+--> 
+
+
+<!--
+<link name="root"/>
+
+    <joint name="arm_base_joint" type="fixed">
+		<origin xyz="0 0 0.21275" rpy="0 0 0" />
+		<parent link="atom2_base_link" />
+		<child link="root" />
+	  </joint>
+
+
+ <xacro:include filename="$(find kinova_description)/urdf/j2n6s300.xacro"/>
+ <xacro:j2n6s300  base_parent="root" prefix="" /> 
+--> 
+
+<env name="GAZEBO_RESOURCE_PATH" value="$(find interbotix_gazebo)"/>
+ <xacro:include filename="$(find interbotix_descriptions)/urdf/vx300.urdf.xacro"/>
+
+
+  <gazebo reference="$(arg robot_name)/base_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/shoulder_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/upper_arm_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/forearm_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/upper_forearm_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/lower_forearm_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/wrist_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/gripper_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/gripper_prop_link">
+    <dampingFactor>1</dampingFactor>
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/gripper_bar_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/left_finger_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/right_finger_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+    <joint name="arm_base_joint" type="fixed">
+		<origin xyz="0 0 0.21275" rpy="0 0 0" />
+		<parent link="atom2_base_link" />
+		<child link="atom2/base_link" />
+	  </joint>
+
+</robot>
+
+

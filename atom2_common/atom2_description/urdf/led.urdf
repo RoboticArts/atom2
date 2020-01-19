@@ -1,0 +1,791 @@
+<?xml version="1.0"?>
+
+<robot
+  name="atom2">
+
+  <link name="base_link">
+    
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="7.669" />
+        <inertia ixx="0.15494222195" ixy="0.00008348318" ixz="-0.00871555526" iyy="0.29942045883" iyz="0.00017641343" izz="0.33676176258" />
+    </inertial>
+    
+    <visual>
+
+        <origin xyz="0 0 0" rpy="0 0 0" />
+
+        <geometry>
+            <box size="1 1 1" />
+        </geometry>
+
+    </visual>
+
+    <light name='lamp' type='spot'>
+        <color>1 0 0</color>
+    </light>
+
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size="1 1 1" />
+        </geometry>
+    </collision>
+
+  </link>
+
+<!--
+    <gazebo reference="base_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+-->
+    <gazebo>
+        <plugin name='light_control' filename='libLedPlugin.so'>
+            <light>base_link/lamp</light>
+            <duration>0.5</duration>
+            <interval>0.5</interval>
+        </plugin>
+    </gazebo>
+</robot>
+
+
+
+
+
+
+<?xml version="1.0"?>
+
+<robot name="atom2">
+
+  <link name="base_footprint">
+      <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+             <box size="0.001 0.001 0.001" />
+          </geometry>
+      </visual>
+  </link>
+
+
+<!--
+  ixx = 154942221.95   0.15494222195
+  ixy = 83483.18 0.00008348318
+  ixz = -8715555.26 -0.00871555526
+  iyy = 299420458.83 0.29942045883
+  iyz = 176413.43 0.00017641343
+  izz = 336761762.58 0.33676176258
+
+-->
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="7.669" />
+      <!-- <inertia
+        ixx="0.15494222195"
+        ixy="0.00008348318"
+        ixz="-0.00871555526"
+        iyy="0.29942045883"
+        iyz="0.00017641343"
+        izz="0.33676176258" /> -->
+         <inertia
+        ixx="0.15494222195"
+        ixy="0.00008348318"
+        ixz="-0.00871555526"
+        iyy="0.29942045883"
+        iyz="0.00017641343"
+        izz="0.33676176258" /> 
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://atom2_description/meshes/bases/atom2_chassis.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://atom2_description/meshes/bases/atom2_chassis.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_footprint_joint" type="fixed">
+     <origin xyz="0 0 0.213" rpy="0 0 0" />
+     <parent link="base_footprint"/>
+     <child link="base_link"/>
+   </joint>
+
+
+  <link name="cubo">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+
+        <geometry>
+            <box size="0.01 0.01 0.01" />
+        </geometry>
+
+    </visual>
+  </link>
+
+    <gazebo reference="cubo">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+  <joint name="cubo_joint" type="fixed">
+     <origin xyz="0 0 0.5" rpy="0 0 0" />
+     <parent link="base_link"/>
+     <child link="cubo"/>
+   </joint>
+
+
+
+
+
+<!--  
+right wheel
+
+ixx = 3835273.61  0.00383527361
+ixy = 10.10  1.01e-8
+ixz = 3.92    3.92e-9
+iyy = 6073734.94    0.00607373494
+iyz = 23.79      2.379e-8
+izz = 3835275.52  0.00383527552
+
+-->
+
+
+
+  <link
+    name="link rear right">
+    <inertial>
+      <!-- Matriz de transformacion entre el origen de la rueda y el centro  de gravedad -->
+      <!-- Si es xyz = 0 0 0  rpy = 0 0 0 el centro de gravedad se encuentra en el origen de la rueda -->
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="2.2" />
+      <inertia
+        ixx="0.00383527361"
+        ixy="1.01e-8"
+        ixz="3.92e-9"
+        iyy="0.00607373494"
+        iyz="2.379e-8"
+        izz="0.00383527552" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://atom2_description/meshes/wheels/right_wheel.dae" />
+      </geometry>
+      <material
+        name="">
+        <!--
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.1 0.1 0.2 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        -->
+          <color rgba="1 1 1 1" />
+      
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://atom2_description/meshes/wheels/right_wheel.dae" /> 
+
+      </geometry>
+    </collision>
+  </link> 
+
+
+
+  <joint
+    name="joint_rear_right"
+    type="continuous">
+
+    <!-- Matriz de transfomacion entre el origen del chassis y el origen de la rueda. 
+         Indica la posicion de la rueda en espacio respecto a su padre (el chasis)
+         Si es xyz = 0 0 0  rpy = 0 0 0 el origen de la rueda se situa en el origen del chasis
+    -->
+        <origin
+      xyz="0.14799 -0.1575 -0.10549"
+      rpy="0 0 0" />
+    
+    <parent
+      link="base_link" />
+    <child
+      link="link rear right" />
+    <axis
+      xyz="0 1 0" />
+  <!--
+    <limit
+      effort="0"
+      velocity="0" />
+    <dynamics
+      damping="0"
+      friction="0" />
+  -->
+  </joint>
+
+
+
+<!-- left wheel
+
+ixx = 3835273.61  0.00383527361
+ixy = 10.10  1.01e-8
+ixz = -3.92    -3.92e-9
+iyy = 6073734.94    0.00607373494
+iyz = -23.79      -2.379e-8
+izz = 3835275.52  0.00383527552
+
+-->
+
+  <link
+    name="link rear left">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="2.2" />
+      <inertia
+        ixx="0.00383527361"
+        ixy="1.01e-8"
+        ixz="-3.92e-9"
+        iyy="0.00607373494"
+        iyz="-2.379e-8"
+        izz="0.00383527552" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://atom2_description/meshes/wheels/left_wheel.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://atom2_description/meshes/wheels/left_wheel.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+
+
+  <joint
+    name="joint_rear_left"
+    type="continuous">
+    <!-- Matriz de transfomacion entre el origen del chassis y el origen de la rueda 
+         Si es xyz = 0 0 0  rpy = 0 0 0 el origen de la rueda se situa en el origen del chasis
+    --> 
+    <origin
+      xyz="0.14799 0.1575 -0.10549"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link rear left" />
+    <axis
+      xyz="0 1 0" />
+  <!--
+    <limit
+      effort="0"
+      velocity="0" />
+    <dynamics
+      damping="0"
+      friction="0" />
+  -->
+  </joint>
+
+
+
+<!--  -->
+
+
+
+  <link
+    name="link front right">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="2.2" />
+      <inertia
+        ixx="0.00383527361"
+        ixy="1.01e-8"
+        ixz="3.92e-9"
+        iyy="0.00607373494"
+        iyz="2.379e-8"
+        izz="0.00383527552" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://atom2_description/meshes/wheels/right_wheel.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://atom2_description/meshes/wheels/right_wheel.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_front_right"
+    type="continuous">
+    <origin
+      xyz="-0.14799 -0.1575 -0.10549"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link front right" />
+    <axis
+      xyz="0 1 0" />
+  <!--
+    <limit
+      effort="0"
+      velocity="0" />
+    <dynamics
+      damping="0"
+      friction="0" />
+  -->
+  </joint>
+
+
+
+<!--  -->
+
+
+
+  <link
+    name="link front left">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="2.2" />
+      <inertia
+        ixx="0.00383527361"
+        ixy="1.01e-8"
+        ixz="-3.92e-9"
+        iyy="0.00607373494"
+        iyz="-2.379e-8"
+        izz="0.00383527552" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://atom2_description/meshes/wheels/left_wheel.dae" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://atom2_description/meshes/wheels/left_wheel.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="joint_front_left"
+    type="continuous">
+    <origin
+      xyz="-0.14799 0.1575 -0.10549"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link front left" />
+    <axis
+      xyz="0 1 0" />
+    <!--
+    <limit
+      effort="0"
+      velocity="0" />
+    <dynamics
+      damping="0"
+      friction="0" />
+    -->
+
+  </joint>
+
+
+<!--
+<gazebo>
+  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+    <updateRate>20.0</updateRate>
+    <robotNamespace>/</robotNamespace>
+    <leftFrontJoint>joint front left</leftFrontJoint>
+    <rightFrontJoint>joint front right</rightFrontJoint>
+    <leftRearJoint>joint rear left</leftRearJoint>
+    <rightRearJoint>joint rear right</rightRearJoint>
+    <wheelSeparation>0.295</wheelSeparation>
+    <wheelDiameter>0.164</wheelDiameter>
+    <robotBaseFrame>chassis</robotBaseFrame>
+    <torque> 10 </torque>
+    <topicName>cmd_vel</topicName>
+    <broadcastTF>false</broadcastTF>
+  </plugin>
+</gazebo>
+-->
+
+  <transmission name="trans_rear_right" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="link rear right">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="joint_rear_right">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+
+  <transmission name="trans_front_right" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="link front right">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="joint_front_right">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+
+  <transmission name="trans_rear_left" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="link rear left">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="joint_rear_left">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+
+  <transmission name="trans_front_left" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="link front left">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="joint_front_left">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+<!-- 
+ BUG: PID no definido, posiblemente relacionado con Legacity Mode
+  https://github.com/ros-simulation/gazebo_ros_pkgs/issues/886
+-->
+
+<gazebo reference="link rear right">
+      <mu1 value="0.7"/>
+      <mu2 value="0.7"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0"/>
+</gazebo>
+
+<gazebo reference="link front right">
+      <mu1 value="0.7"/>
+      <mu2 value="0.7"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0"/>
+</gazebo>
+
+<gazebo reference="link rear left">
+      <mu1 value="0.7"/>
+      <mu2 value="0.7"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0"/>
+</gazebo>
+
+<gazebo reference="link front left">
+      <mu1 value="0.7"/>
+      <mu2 value="0.7"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0"/>
+</gazebo>
+
+
+  <link name="kinect">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+          <mesh filename="package://atom2_description/meshes/accessories/kinect.dae" />
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://atom2_description/meshes/accessories/kinect.dae" />
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="0.1" x="0.1" y="0.1" z="0.1" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" /> 
+    </inertial>
+  </link>
+
+
+  <joint name="kinect_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="-0.22247 0 0.68823" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="kinect"/>
+  </joint>
+
+
+  <link name="kinect_support_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+          <mesh filename="package://atom2_description/meshes/accessories/kinect_support.dae" />
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://atom2_description/meshes/accessories/kinect_support.dae" />
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="0.1" x="0.1" y="0.1" z="0.1" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" /> 
+    </inertial>
+  </link>
+
+
+  <joint name="kinect_support_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="-0.23 0 0.24" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="kinect_support_link"/>
+  </joint>
+
+
+
+
+
+  <link name="camera">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+          <mesh filename="package://atom2_description/meshes/accessories/orbbec_astra_camera.dae" />
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://atom2_description/meshes/accessories/orbbec_astra_camera.dae" />
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="0.1" x="0.1" y="0.1" z="0.1" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" /> 
+    </inertial>
+  </link>
+
+
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0.31938 0 0.08801" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="camera"/>
+  </joint>
+
+
+  <gazebo reference="camera">
+    <sensor type="camera" name="camera1">
+    <!-- <pose>10 10 10 1.57 0 0</pose> -->
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>atom2/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+</gazebo>
+
+
+
+  <joint name="rplidar_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.09286 0 0.28275" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="rplidar"/>
+  </joint>
+
+  <!-- Hokuyo Laser --> 
+
+  <link name="rplidar">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://atom2_description/meshes/accessories/rplidar_A1_M8.dae"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+</link>
+
+
+  <!-- hokuyo -->
+  <gazebo reference="rplidar">
+    <sensor type="ray" name="head_hokuyo_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters based on published spec for Hokuyo laser
+               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+               reading. -->
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/atom2/laser/scan</topicName>
+        <frameName>hokuyo</frameName>
+      </plugin>
+    </sensor>
+</gazebo>
+
+<!--
+  Legacity mode: https://github.com/ros-simulation/gazebo_ros_pkgs/pull/637
+-->
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS> 
+    </plugin>
+  </gazebo>
+
+
+
+
+
+</robot>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<launch>
+
+
+	<!-- - - - - - - - - - -  ATOM2 CONFIGURATION - - - - - - - - - - -->
+
+	<!-- Robot properties -->
+	<arg name="robot_name"		 default="atom2" />
+	<arg name="base_footprint"   default="$(arg robot_name)_base_footprint" />	
+	<arg name="base_link"		 default="$(arg robot_name)_base_link" />	
+	<arg name="odom"			 default="$(arg robot_name)_odom" />
+
+	<!-- Robot Gazebo -->
+	<arg name="world_name"       default="worlds/empty.world"/>
+	<arg name="x_spawn_robot"    default="0" />
+	<arg name="y_spawn_robot"    default="0" />
+	<arg name="z_spawn_robot"    default="0" />
+
+	<!-- Robot RVIZ -->
+	<arg name="launch_rviz" 	 default="false" />
+
+	<!-- Robot accesories -->
+	<arg name="use_rplidar_A1M8" default="false" />
+	<arg name="use_orbbec_astra" default="false" />
+	<arg name="use_kinect" 		 default="false" />
+	<arg name="use_central_cube" default="false" />
+	
+ <env name="GAZEBO_RESOURCE_PATH" value="$(find interbotix_gazebo)"/>
+
+	<!-- - - - - - - - - - -  LOAD ATOM2 IN GAZEBO - - - - - - - - - - -->
+
+	<include file="$(find atom2_gazebo)/launch/atom2_gazebo.launch">
+
+		<!-- Robot properties -->
+		<arg name="robot_name"		 value="$(arg robot_name)" />
+		<arg name="base_footprint"   value="$(arg base_footprint)" />	
+		<arg name="base_link"		 value="$(arg base_link)" />	
+		<arg name="odom"			 value="$(arg odom)" />
+		
+		<!-- Robot world -->
+		<arg name="world_name" 		 value="$(arg world_name)" /> 
+		<arg name="x_spawn_robot" 	 value="$(arg x_spawn_robot)" />
+		<arg name="y_spawn_robot" 	 value="$(arg y_spawn_robot)" />
+		<arg name="z_spawn_robot" 	 value="$(arg z_spawn_robot)" />
+
+		<!-- Robot RVIZ -->
+		<arg name="launch_rviz" 	 value="$(arg launch_rviz)" />
+		
+		<!-- Robot accesories -->
+		<arg name="use_rplidar_A1M8" value="$(arg use_rplidar_A1M8)" />
+		<arg name="use_orbbec_astra" value="$(arg use_orbbec_astra)" />
+		<arg name="use_kinect" 		 value="$(arg use_kinect)" />
+		<arg name="use_central_cube" value="$(arg use_central_cube)" />
+	
+	</include> 
+ 
+
+<!--   TO DO 
+	  1. Crear un mundo ligero
+	  2. Revisar porque el robot frena un poco al acelerar, revisar porque gira cuando en teleop sube la velocidad
+			2.1 El giro puede deberse a la simulacion
+			2.1 El avance puede deberse a los recursos del ordenador, comprobar en ordenador potente
+-->	
+
+<!--
+	<node
+    name="spawn_model"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    args="-file $(find atom2_description)/urdf/atom2.urdf -urdf -model atom2"
+    output="screen" />
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch" />
+
+	<param name="robot_description" textfile="$(find atom2_description)/urdf/atom2.urdf"/>
+
+	<rosparam file="$(find atom2_control)/config/atom2_diffdrive_control.yaml" command="load"/>
+	<param name="atom2_description" command="cat '$(find atom2_description)/urdf/atom2.urdf'"/>
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+		respawn="false" output="screen">
+	</node>
+
+
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" 
+    args="
+    	atom2_joint_publisher 
+    	atom2_velocity_controller">
+  	</node>
+-->
+</launch>

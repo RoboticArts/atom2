@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- - - - - - - - - - - -  GENERAL ARGUMENTS - - - - - - - - - - -->
+
+	<!-- Robot properties -->
+	<arg name="robot_name"		 default="atom2" />
+	<arg name="base_footprint"   default="$(arg robot_name)_base_footprint" />	
+	<arg name="base_link"		 default="$(arg robot_name)_base_link" />	
+	<arg name="odom"			 default="$(arg robot_name)_odom" />
+
+	<!-- Robot world -->
+	<arg name="x_spawn_robot"    default="0" />
+	<arg name="y_spawn_robot"    default="0" />
+	<arg name="z_spawn_robot"    default="0" />
+
+	<!-- Robot accesories -->
+	<arg name="use_rplidar_A1M8" default="true" />
+	<arg name="use_orbbec_astra" default="true" />
+	<arg name="use_kinect" 		 default="true" />
+	<arg name="use_central_cube" default="true" />
+
+ 	
+
+	<group ns="$(arg robot_name)">
+
+		<!-- Load the URDF into the ROS Parameter Server -->
+		<arg name="xacro_robot" default="$(find atom2_description)/robots/atom2_std.urdf.xacro" />
+		<param name="robot_description" command="$(find xacro)/xacro '$(arg xacro_robot)'  --inorder
+				robot_name:=$(arg robot_name)
+				base_footprint:=$(arg base_footprint)
+				base_link:=$(arg base_link)
+				use_rplidar_A1M8:=$(arg use_rplidar_A1M8) 
+				use_orbbec_astra:=$(arg use_orbbec_astra)
+				use_kinect:=$(arg use_kinect)
+				use_central_cube:=$(arg use_central_cube)
+		"/>
+		
+		<!-- Spawner model into gazebo -->
+		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+			args="-urdf -x $(arg x_spawn_robot) -y $(arg x_spawn_robot) -z $(arg x_spawn_robot)
+				-model $(arg robot_name) -param robot_description"/>
+
+
+		<!-- Robot state publisher -->
+		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" 
+			respawn="false" output="screen" />
+		
+
+		<!-- start atom2_control nodes -->
+		<include file="$(find atom2_control)/launch/atom2_control.launch">
+
+			<!-- Robot properties -->
+			<arg name="robot_name"		 value="$(arg robot_name)" />
+			<arg name="base_footprint"   value="$(arg base_footprint)" />	
+			<arg name="base_link"		 value="$(arg base_link)" />	
+			<arg name="odom"			 value="$(arg odom)" />
+
+		</include>
+
+	</group>
+
+
+
+
+
+
+</launch>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <name>atom2_common</name>
+  <version>0.0.0</version>
+  <description>The atom2_common package. It contains atom2 common packages used for robot control and for simulation</description>
+
+  <author email="rvasquez@roboticarts.es">Robert Vasquez</author>
+
+  <maintainer email="rvasquez@roboticarts.es">Robert Vasquez</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>atom2_description</run_depend>
+  <run_depend>atom2_control</run_depend>
+  
+
+  <export>
+	<metapackage/>
+  </export>
+
+</package>
