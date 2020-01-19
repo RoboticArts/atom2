@@ -31,14 +31,14 @@
 
 <!-- - - - - - - - - - - - - - GLOBAL ARGUMENTS - - - - - - - - - - - - - -->
 
-  <xacro:arg name="base_footprint"    default="$(arg robot_id)_base_footprint" />
-  <xacro:arg name="base_link"         default="$(arg robot_id)_base_link" />
-
   <xacro:arg name="robot_id"          default="atom2" />  
   <xacro:arg name="use_rplidar_A1M8"  default="true" />
   <xacro:arg name="use_orbbec_astra"  default="true" />
   <xacro:arg name="use_kinect"        default="true" /> 
   <xacro:arg name="use_central_cube"  default="true" />
+
+  <xacro:arg name="base_footprint"    default="$(arg robot_id)_base_footprint" />
+  <xacro:arg name="base_link"         default="$(arg robot_id)_base_link" />
 
 
 <!-- - - - - - - - - - - - - - XACRO INCLUDES - - - - - - - - - - - - - -->
@@ -159,66 +159,14 @@
   </xacro:if>
 
  
-<!-- - - - - - - - - - - - - - UR3 ARM IMPLEMENTATION  - - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - - - VX300 ARM IMPLEMENTATION  - - - - - - - - - - - - - -->
 
-<env name="GAZEBO_RESOURCE_PATH" value="$(find interbotix_gazebo)"/>
- <xacro:include filename="$(find interbotix_descriptions)/urdf/vx300.urdf.xacro"/>
+<xacro:include filename="$(find atom2_description)/urdf/accesories/vx300_arm.urdf.xacro" />
 
+<xacro:vx300_arm parent="$(arg base_link)">
+    <origin xyz="0 0 0.21275" rpy="0 0 0" />
+</xacro:vx300_arm>
 
-  <gazebo reference="/base_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/shoulder_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/upper_arm_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/forearm_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/upper_forearm_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/lower_forearm_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/wrist_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/gripper_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/gripper_prop_link">
-    <dampingFactor>1</dampingFactor>
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/gripper_bar_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/left_finger_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-  <gazebo reference="/right_finger_link">
-    <material>Custom/Interbotix</material>
-  </gazebo>
-
-    <joint name="arm_base_joint" type="fixed">
-		<origin xyz="0 0 0.21275" rpy="0 0 0" />
-		<parent link="$(arg base_link)" />
-		<child link="/base_link" />
-	  </joint>
 
 </robot>
 

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot name="vx300_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name ="vx300_arm" params="parent *origin">
+
+<!-- <env name="GAZEBO_RESOURCE_PATH" value="$(find interbotix_gazebo)"/> -->
+  <xacro:include filename="$(find interbotix_descriptions)/urdf/vx300.urdf.xacro"/>
+
+    <joint name="arm_base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="/base_link" />
+    </joint>
+
+    <gazebo reference="/base_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/shoulder_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/upper_arm_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/forearm_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/upper_forearm_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/lower_forearm_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/wrist_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/gripper_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/gripper_prop_link">
+      <dampingFactor>1</dampingFactor>
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/gripper_bar_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/left_finger_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="/right_finger_link">
+      <material>Gazebo/Grey</material>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

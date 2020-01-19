@@ -20,10 +20,10 @@
 	<arg name="launch_rviz" 	 default="false" />
 
 	<!-- Robot accesories -->
-	<arg name="use_rplidar_A1M8" default="false" />
-	<arg name="use_orbbec_astra" default="false" />
-	<arg name="use_kinect" 		 default="false" />
-	<arg name="use_central_cube" default="false" />
+	<arg name="use_rplidar_A1M8" default="true" />
+	<arg name="use_orbbec_astra" default="true" />
+	<arg name="use_kinect" 		 default="true" />
+	<arg name="use_central_cube" default="true" />
 	
 	<!-- - - - - - - - - - -  LOAD ATOM2 IN GAZEBO - - - - - - - - - - -->
 
