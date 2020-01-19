@@ -13,52 +13,52 @@
     </joint>
 
     <gazebo reference="/base_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/shoulder_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/upper_arm_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/forearm_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/upper_forearm_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/lower_forearm_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/wrist_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/gripper_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/gripper_prop_link">
       <dampingFactor>1</dampingFactor>
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/gripper_bar_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/left_finger_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="/right_finger_link">
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Orange</material>
     </gazebo>
 
   </xacro:macro>

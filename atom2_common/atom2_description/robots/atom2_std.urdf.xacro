@@ -164,7 +164,7 @@
 <xacro:include filename="$(find atom2_description)/urdf/accesories/vx300_arm.urdf.xacro" />
 
 <xacro:vx300_arm parent="$(arg base_link)">
-    <origin xyz="0 0 0.21275" rpy="0 0 0" />
+    <origin xyz="-0.05 0 0.24" rpy="0 0 0" />
 </xacro:vx300_arm>
 
 
