@@ -161,38 +161,6 @@
  
 <!-- - - - - - - - - - - - - - UR3 ARM IMPLEMENTATION  - - - - - - - - - - - - - -->
 
-<!--
-  <xacro:include filename="$(find ur_description)/urdf/ur3.urdf.xacro" />
-
-
-    <xacro:ur3_robot prefix="arm_"  joint_limited="true"
-			shoulder_pan_lower_limit="-3.14" shoulder_pan_upper_limit="3.14"
-			wrist_3_lower_limit="3.14" wrist_3_upper_limit="3.14"
-      transmission_hw_interface= "hardware_interface/PositionJointInterface" > 
-    </xacro:ur3_robot>
-
-    <joint name="arm_base_joint" type="fixed">
-		<origin xyz="-0.23 0 0.21275" rpy="0 0 0" />
-		<parent link="atom2_base_link" />
-		<child link="arm_base_link" />
-	  </joint>
---> 
-
-
-<!--
-<link name="root"/>
-
-    <joint name="arm_base_joint" type="fixed">
-		<origin xyz="0 0 0.21275" rpy="0 0 0" />
-		<parent link="atom2_base_link" />
-		<child link="root" />
-	  </joint>
-
-
- <xacro:include filename="$(find kinova_description)/urdf/j2n6s300.xacro"/>
- <xacro:j2n6s300  base_parent="root" prefix="" /> 
---> 
-
 <env name="GAZEBO_RESOURCE_PATH" value="$(find interbotix_gazebo)"/>
  <xacro:include filename="$(find interbotix_descriptions)/urdf/vx300.urdf.xacro"/>
 
