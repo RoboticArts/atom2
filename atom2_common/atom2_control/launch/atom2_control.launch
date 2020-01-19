@@ -5,18 +5,18 @@
 	<!-- - - - - - - - - - - -  GENERAL ARGUMENTS - - - - - - - - - - -->
 
 	<!-- Robot properties -->
-	<arg name="robot_name"		 default="atom2" />
-	<arg name="base_footprint"   default="$(arg robot_name)_base_footprint" />	
-	<arg name="base_link"		 default="$(arg robot_name)_base_link" />	
-	<arg name="odom"			 default="$(arg robot_name)_odom" />
+	<arg name="robot_id"		 default="atom2" />
+	<arg name="base_footprint"   default="$(arg robot_id)_base_footprint" />	
+	<arg name="base_link"		 default="$(arg robot_id)_base_link" />	
+	<arg name="odom"			 default="$(arg robot_id)_odom" />
 
 
 
 	<!-- Load joint controller configurations from YAML file to parameter server -->
 	<rosparam file="$(find atom2_control)/config/atom2_diffdrive_control.yaml" command="load"/>
 
-	<rosparam param="velocity_controller/left_wheel"    subst_value="True"> ['$(arg robot_name)_front_left_wheel_joint', '$(arg robot_name)_rear_left_wheel_joint']  </rosparam>
-	<rosparam param="velocity_controller/right_wheel"   subst_value="True"> ['$(arg robot_name)_front_right_wheel_joint','$(arg robot_name)_rear_right_wheel_joint'] </rosparam>
+	<rosparam param="velocity_controller/left_wheel"    subst_value="True"> ['$(arg robot_id)_front_left_wheel_joint', '$(arg robot_id)_rear_left_wheel_joint']  </rosparam>
+	<rosparam param="velocity_controller/right_wheel"   subst_value="True"> ['$(arg robot_id)_front_right_wheel_joint','$(arg robot_id)_rear_right_wheel_joint'] </rosparam>
 	<rosparam param="velocity_controller/base_frame_id" subst_value="True">  '$(arg base_footprint)' </rosparam>
 	<rosparam param="velocity_controller/odom_frame_id" subst_value="True">  '$(arg odom)'           </rosparam>
 

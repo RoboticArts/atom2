@@ -4,10 +4,10 @@
 	<!-- - - - - - - - - - - -  GENERAL ARGUMENTS - - - - - - - - - - -->
 
 	<!-- Robot properties -->
-	<arg name="robot_name"		 default="atom2" />
-	<arg name="base_footprint"   default="$(arg robot_name)_base_footprint" />	
-	<arg name="base_link"		 default="$(arg robot_name)_base_link" />	
-	<arg name="odom"			 default="$(arg robot_name)_odom" />
+	<arg name="robot_id"		 default="atom2" />
+	<arg name="base_footprint"   default="$(arg robot_id)_base_footprint" />	
+	<arg name="base_link"		 default="$(arg robot_id)_base_link" />	
+	<arg name="odom"			 default="$(arg robot_id)_odom" />
 
 	<!-- Robot world -->
 	<arg name="x_spawn_robot"    default="0" />
@@ -22,12 +22,12 @@
 
  	
 
-	<group ns="$(arg robot_name)">
+	<group ns="$(arg robot_id)">
 
 		<!-- Load the URDF into the ROS Parameter Server -->
 		<arg name="xacro_robot" default="$(find atom2_description)/robots/atom2_std.urdf.xacro" />
 		<param name="robot_description" command="$(find xacro)/xacro '$(arg xacro_robot)'  --inorder
-				robot_name:=$(arg robot_name)
+				robot_id:=$(arg robot_id)
 				base_footprint:=$(arg base_footprint)
 				base_link:=$(arg base_link)
 				use_rplidar_A1M8:=$(arg use_rplidar_A1M8) 
@@ -39,7 +39,7 @@
 		<!-- Spawner model into gazebo -->
 		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 			args="-urdf -x $(arg x_spawn_robot) -y $(arg x_spawn_robot) -z $(arg x_spawn_robot)
-				-model $(arg robot_name) -param robot_description"/>
+				-model $(arg robot_id) -param robot_description"/>
 
 
 		<!-- Robot state publisher -->
@@ -51,7 +51,7 @@
 		<include file="$(find atom2_control)/launch/atom2_control.launch">
 
 			<!-- Robot properties -->
-			<arg name="robot_name"		 value="$(arg robot_name)" />
+			<arg name="robot_id"		 value="$(arg robot_id)" />
 			<arg name="base_footprint"   value="$(arg base_footprint)" />	
 			<arg name="base_link"		 value="$(arg base_link)" />	
 			<arg name="odom"			 value="$(arg odom)" />

@@ -5,10 +5,10 @@
 	<!-- - - - - - - - - - -  ATOM2 CONFIGURATION - - - - - - - - - - -->
 
 	<!-- Robot properties -->
-	<arg name="robot_name"		 default="atom2" />
-	<arg name="base_footprint"   default="$(arg robot_name)_base_footprint" />	
-	<arg name="base_link"		 default="$(arg robot_name)_base_link" />	
-	<arg name="odom"			 default="$(arg robot_name)_odom" />
+	<arg name="robot_id"		 default="delta" />
+	<arg name="base_footprint"   default="$(arg robot_id)_base_footprint" />	
+	<arg name="base_link"		 default="$(arg robot_id)_base_link" />	
+	<arg name="odom"			 default="$(arg robot_id)_odom" />
 
 	<!-- Robot Gazebo -->
 	<arg name="world_name"       default="worlds/empty.world"/>
@@ -32,7 +32,7 @@
 	<include file="$(find atom2_gazebo)/launch/atom2_gazebo.launch">
 
 		<!-- Robot properties -->
-		<arg name="robot_name"		 value="$(arg robot_name)" />
+		<arg name="robot_id"		 value="$(arg robot_id)" />
 		<arg name="base_footprint"   value="$(arg base_footprint)" />	
 		<arg name="base_link"		 value="$(arg base_link)" />	
 		<arg name="odom"			 value="$(arg odom)" />
