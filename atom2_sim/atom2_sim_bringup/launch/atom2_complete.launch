@@ -5,7 +5,7 @@
 	<!-- - - - - - - - - - -  ATOM2 CONFIGURATION - - - - - - - - - - -->
 
 	<!-- Robot properties -->
-	<arg name="robot_id"		 default="delta" />
+	<arg name="robot_id"		 default="atom2" />
 	<arg name="base_footprint"   default="$(arg robot_id)_base_footprint" />	
 	<arg name="base_link"		 default="$(arg robot_id)_base_link" />	
 	<arg name="odom"			 default="$(arg robot_id)_odom" />
@@ -25,8 +25,6 @@
 	<arg name="use_kinect" 		 default="false" />
 	<arg name="use_central_cube" default="false" />
 	
- <env name="GAZEBO_RESOURCE_PATH" value="$(find interbotix_gazebo)"/>
-
 	<!-- - - - - - - - - - -  LOAD ATOM2 IN GAZEBO - - - - - - - - - - -->
 
 	<include file="$(find atom2_gazebo)/launch/atom2_gazebo.launch">

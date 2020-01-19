@@ -22,7 +22,7 @@
 
  	
 
-	<group ns="$(arg robot_id)">
+	<!-- <group ns="$(arg robot_id)"> -->
 
 		<!-- Load the URDF into the ROS Parameter Server -->
 		<arg name="xacro_robot" default="$(find atom2_description)/robots/atom2_std.urdf.xacro" />
@@ -58,7 +58,7 @@
 
 		</include>
 
-	</group>
+	<!-- </group> -->
 
 
 
