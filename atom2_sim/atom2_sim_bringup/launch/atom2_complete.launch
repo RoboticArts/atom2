@@ -7,11 +7,11 @@
 	<!-- Robot properties -->
 	<arg name="robot_id"		 default="atom2" />
 	<arg name="base_footprint"   default="$(arg robot_id)_base_footprint" />	
-	<arg name="base_link"		 default="$(arg robot_id)_base_link" />	
-	<arg name="odom"			 default="$(arg robot_id)_odom" />
+	<arg name="base_link"		 default="$(arg robot_id)_base_link"  	  />	
+	<arg name="odom"			 default="$(arg robot_id)_odom" 		  />
 
 	<!-- Robot Gazebo -->
-	<arg name="world_name"       default="worlds/empty.world"/>
+	<arg name="world_name"       default="worlds/empty.world" />
 	<arg name="x_spawn_robot"    default="0" />
 	<arg name="y_spawn_robot"    default="0" />
 	<arg name="z_spawn_robot"    default="0" />
@@ -22,32 +22,35 @@
 	<!-- Robot accesories -->
 	<arg name="use_rplidar_A1M8" default="true" />
 	<arg name="use_orbbec_astra" default="true" />
-	<arg name="use_kinect" 		 default="true" />
-	<arg name="use_central_cube" default="true" />
-	
+	<arg name="use_kinect" 		 default="false" />
+	<arg name="use_vx300_arm"	 default="false" />
+	<arg name="use_central_cube" default="false" />
+
+
 	<!-- - - - - - - - - - -  LOAD ATOM2 IN GAZEBO - - - - - - - - - - -->
 
 	<include file="$(find atom2_gazebo)/launch/atom2_gazebo.launch">
 
 		<!-- Robot properties -->
-		<arg name="robot_id"		 value="$(arg robot_id)" />
-		<arg name="base_footprint"   value="$(arg base_footprint)" />	
-		<arg name="base_link"		 value="$(arg base_link)" />	
-		<arg name="odom"			 value="$(arg odom)" />
+		<arg name="robot_id"		 value="$(arg robot_id)" 		 />
+		<arg name="base_footprint"   value="$(arg base_footprint)" 	 />	
+		<arg name="base_link"		 value="$(arg base_link)" 		 />	
+		<arg name="odom"			 value="$(arg odom)" 			 />
 		
 		<!-- Robot world -->
-		<arg name="world_name" 		 value="$(arg world_name)" /> 
-		<arg name="x_spawn_robot" 	 value="$(arg x_spawn_robot)" />
-		<arg name="y_spawn_robot" 	 value="$(arg y_spawn_robot)" />
-		<arg name="z_spawn_robot" 	 value="$(arg z_spawn_robot)" />
+		<arg name="world_name" 		 value="$(arg world_name)" 		 /> 
+		<arg name="x_spawn_robot" 	 value="$(arg x_spawn_robot)" 	 />
+		<arg name="y_spawn_robot" 	 value="$(arg y_spawn_robot)" 	 />
+		<arg name="z_spawn_robot" 	 value="$(arg z_spawn_robot)" 	 />
 
 		<!-- Robot RVIZ -->
-		<arg name="launch_rviz" 	 value="$(arg launch_rviz)" />
+		<arg name="launch_rviz" 	 value="$(arg launch_rviz)" 	 />
 		
 		<!-- Robot accesories -->
 		<arg name="use_rplidar_A1M8" value="$(arg use_rplidar_A1M8)" />
 		<arg name="use_orbbec_astra" value="$(arg use_orbbec_astra)" />
-		<arg name="use_kinect" 		 value="$(arg use_kinect)" />
+		<arg name="use_kinect" 		 value="$(arg use_kinect)" 		 />
+		<arg name="use_vx300_arm"	 value="$(arg use_vx300_arm)" 	 />
 		<arg name="use_central_cube" value="$(arg use_central_cube)" />
 	
 	</include> 

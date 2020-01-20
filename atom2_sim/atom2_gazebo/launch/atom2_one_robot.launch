@@ -6,8 +6,8 @@
 	<!-- Robot properties -->
 	<arg name="robot_id"		 default="atom2" />
 	<arg name="base_footprint"   default="$(arg robot_id)_base_footprint" />	
-	<arg name="base_link"		 default="$(arg robot_id)_base_link" />	
-	<arg name="odom"			 default="$(arg robot_id)_odom" />
+	<arg name="base_link"		 default="$(arg robot_id)_base_link" 	  />	
+	<arg name="odom"			 default="$(arg robot_id)_odom" 		  />
 
 	<!-- Robot world -->
 	<arg name="x_spawn_robot"    default="0" />
@@ -15,10 +15,11 @@
 	<arg name="z_spawn_robot"    default="0" />
 
 	<!-- Robot accesories -->
-	<arg name="use_rplidar_A1M8" default="true" />
-	<arg name="use_orbbec_astra" default="true" />
-	<arg name="use_kinect" 		 default="true" />
-	<arg name="use_central_cube" default="true" />
+	<arg name="use_rplidar_A1M8" default="false" />
+	<arg name="use_orbbec_astra" default="false" />
+	<arg name="use_kinect" 		 default="false" />
+	<arg name="use_vx300_arm"	 default="false" />
+	<arg name="use_central_cube" default="false" />
 
  	
 
@@ -33,6 +34,7 @@
 				use_rplidar_A1M8:=$(arg use_rplidar_A1M8) 
 				use_orbbec_astra:=$(arg use_orbbec_astra)
 				use_kinect:=$(arg use_kinect)
+				use_vx300_arm:=$(arg use_vx300_arm)
 				use_central_cube:=$(arg use_central_cube)
 		"/>
 		
@@ -47,22 +49,20 @@
 			respawn="false" output="screen" />
 		
 
-		<!-- start atom2_control nodes -->
+		<!-- start atom2_control node -->
 		<include file="$(find atom2_control)/launch/atom2_control.launch">
 
 			<!-- Robot properties -->
-			<arg name="robot_id"		 value="$(arg robot_id)" />
+			<arg name="robot_id"		 value="$(arg robot_id)" 	   />
 			<arg name="base_footprint"   value="$(arg base_footprint)" />	
-			<arg name="base_link"		 value="$(arg base_link)" />	
-			<arg name="odom"			 value="$(arg odom)" />
+			<arg name="base_link"		 value="$(arg base_link)" 	   />	
+			<arg name="odom"			 value="$(arg odom)" 		   />
+
+			<!-- Robot accesories -->
+			<arg name="use_vx300_arm"	 value="$(arg use_vx300_arm)"/>
 
 		</include>
 
 	</group> 
-
-
-
-
-
 
 </launch>

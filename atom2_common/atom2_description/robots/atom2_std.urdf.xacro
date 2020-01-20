@@ -35,6 +35,7 @@
   <xacro:arg name="use_rplidar_A1M8"  default="true" />
   <xacro:arg name="use_orbbec_astra"  default="true" />
   <xacro:arg name="use_kinect"        default="true" /> 
+  <xacro:arg name="use_vx300_arm"     default="true" /> 
   <xacro:arg name="use_central_cube"  default="true" />
 
   <xacro:arg name="base_footprint"    default="$(arg robot_id)_base_footprint" />
@@ -161,11 +162,15 @@
  
 <!-- - - - - - - - - - - - - - VX300 ARM IMPLEMENTATION  - - - - - - - - - - - - - -->
 
-<xacro:include filename="$(find atom2_description)/urdf/accesories/vx300_arm.urdf.xacro" />
+<xacro:if value="$(arg use_vx300_arm)">
 
-<xacro:vx300_arm parent="$(arg base_link)">
-    <origin xyz="-0.05 0 0.24" rpy="0 0 0" />
-</xacro:vx300_arm>
+  <xacro:include filename="$(find atom2_description)/urdf/accesories/vx300_arm.urdf.xacro" />
+
+  <xacro:vx300_arm parent="$(arg base_link)">
+      <origin xyz="-0.05 0 0.24" rpy="0 0 0" />
+  </xacro:vx300_arm>
+
+</xacro:if>
 
 
 </robot>
