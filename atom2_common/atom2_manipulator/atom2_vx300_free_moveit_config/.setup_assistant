@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ""
+    relative_path: /home/robert/Escritorio/atom2_std.urdf.xacro
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/atom2.srdf
+  CONFIG:
+    author_name: robert
+    author_email: roboticarts1@gmail.com
+    generated_timestamp: 1579478681
