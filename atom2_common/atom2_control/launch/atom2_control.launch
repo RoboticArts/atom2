@@ -25,15 +25,15 @@
   	<node name="arm_controller_spawner" pkg="controller_manager" type="spawner" args="arm_controller" respawn="false" output="screen"/>
 	-->
 	
-	<rosparam file="$(find interbotix_gazebo)/config/vx300_gazebo_controllers.yaml" command="load"/>
+	<rosparam file="$(find interbotix_gazebo)/config/vx300_gazebo_controllers.yaml" command="load" ns="vx300"/>
 	
-	<node
+	<node 
     name="arm_controller_spawner"
     pkg="controller_manager"
     type="spawner"
     respawn="false"
     output="screen"
-    args="arm_controller gripper_controller"/>
+    args="vx300/arm_controller vx300/gripper_controller"/>
 
 	<!-- Load the controllers -->
 	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" 
