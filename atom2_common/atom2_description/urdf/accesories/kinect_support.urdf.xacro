@@ -18,12 +18,12 @@
         </geometry>
         </visual>
 
-        <inertial>
-        <mass value="0.1" />
+      <inertial>
+        <mass value="1e-5" />
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <box_inertia m="0.1" x="0.1" y="0.1" z="0.1" />
-        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" /> 
-        </inertial>
+        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      </inertial>
+
     </link>
 
 
