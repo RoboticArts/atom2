@@ -7,8 +7,8 @@ Panels:
         - /Global Options1
         - /Status1
         - /RobotModel1
-        - /LaserScan1
         - /LaserScan1/Status1
+        - /PointCloud21
       Splitter Ratio: 0.5
     Tree Height: 435
   - Class: rviz/Selection
@@ -29,7 +29,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
@@ -58,94 +58,151 @@ Visualization Manager:
       Collision Enabled: false
       Enabled: true
       Links:
+        /base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /ee_arm_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        /ee_gripper_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        /fingers_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        /forearm_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /gripper_bar_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /gripper_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /gripper_prop_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /left_finger_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /right_finger_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /shoulder_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /upper_arm_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        /wrist_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_footprint:
+        atom2_base_footprint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        base_link:
+        atom2_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        central_cube_link:
+        atom2_front_left_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_link:
+        atom2_front_right_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_right_wheel_link:
+        atom2_kinect_depth_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        atom2_kinect_depth_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        atom2_kinect_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        kinect_depth_link:
+        atom2_kinect_rgb_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        kinect_depth_optical_frame:
+        atom2_kinect_rgb_optical_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        kinect_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kinect_rgb_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        kinect_rgb_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        kinect_support_link:
+        atom2_kinect_support_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        orbbec_astra_depth_frame:
+        atom2_orbbec_astra_depth_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        orbbec_astra_depth_optical_frame:
+        atom2_orbbec_astra_depth_optical_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        orbbec_astra_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        orbbec_astra_rgb_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        orbbec_astra_rgb_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        rear_left_wheel_link:
+        atom2_orbbec_astra_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rear_right_wheel_link:
+        atom2_orbbec_astra_rgb_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        atom2_orbbec_astra_rgb_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        atom2_rear_left_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rplidar_A1M8_link:
+        atom2_rear_right_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        atom2_rplidar_A1M8_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -157,92 +214,19 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: true
+      Enabled: false
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_footprint:
-          Value: true
-        base_link:
-          Value: true
-        central_cube_link:
-          Value: true
-        front_left_wheel_link:
-          Value: true
-        front_right_wheel_link:
-          Value: true
-        kinect_depth_link:
-          Value: true
-        kinect_depth_optical_frame:
-          Value: true
-        kinect_link:
-          Value: true
-        kinect_rgb_base_link:
-          Value: true
-        kinect_rgb_optical_frame:
-          Value: true
-        kinect_support_link:
-          Value: true
-        odom:
-          Value: true
-        orbbec_astra_depth_frame:
-          Value: true
-        orbbec_astra_depth_optical_frame:
-          Value: true
-        orbbec_astra_link:
-          Value: true
-        orbbec_astra_rgb_base_link:
-          Value: true
-        orbbec_astra_rgb_optical_frame:
-          Value: true
-        rear_left_wheel_link:
-          Value: true
-        rear_right_wheel_link:
-          Value: true
-        rplidar_A1M8_link:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        base_footprint:
-          base_link:
-            central_cube_link:
-              {}
-            front_left_wheel_link:
-              {}
-            front_right_wheel_link:
-              {}
-            kinect_rgb_base_link:
-              kinect_depth_link:
-                kinect_depth_optical_frame:
-                  {}
-              kinect_link:
-                {}
-              kinect_rgb_optical_frame:
-                {}
-            kinect_support_link:
-              {}
-            orbbec_astra_rgb_base_link:
-              orbbec_astra_depth_frame:
-                orbbec_astra_depth_optical_frame:
-                  {}
-              orbbec_astra_link:
-                {}
-              orbbec_astra_rgb_optical_frame:
-                {}
-            rear_left_wheel_link:
-              {}
-            rear_right_wheel_link:
-              {}
-            rplidar_A1M8_link:
-              {}
-        odom:
-          {}
+        {}
       Update Interval: 0
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -253,16 +237,16 @@ Visualization Manager:
       Channel Name: intensity
       Class: rviz/LaserScan
       Color: 255; 255; 255
-      Color Transformer: ""
+      Color Transformer: Intensity
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 4096
+      Max Intensity: 999999
       Min Color: 0; 0; 0
-      Min Intensity: 0
+      Min Intensity: 2.01786979e-43
       Name: LaserScan
-      Position Transformer: ""
+      Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
@@ -273,11 +257,41 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.00999999978
+      Style: Flat Squares
+      Topic: /atom2/kinect/depth/points
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_link
+    Fixed Frame: atom2_odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -298,25 +312,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.12895334
+      Distance: 2.28773832
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.0514219701
-        Y: 0.0072944304
-        Z: -0.0400758348
+        X: 0.339688122
+        Y: 0.00839978643
+        Z: 0.519207716
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.675398409
+      Pitch: 0.235398531
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.530397058
+      Yaw: 1.60539663
     Saved: ~
 Window Geometry:
   Displays:
