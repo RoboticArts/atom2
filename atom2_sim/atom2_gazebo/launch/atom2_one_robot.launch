@@ -41,6 +41,10 @@
 		<!-- Spawner model into gazebo -->
 		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 			args="-urdf -x $(arg x_spawn_robot) -y $(arg y_spawn_robot) -z $(arg z_spawn_robot)
+					-J waist 1.57
+					-J shoulder -1.55
+					-J elbow -1.55
+					-J wrist_angle 0.05
 				-model $(arg robot_id) -param robot_description"/>
 
 
