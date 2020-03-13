@@ -5,7 +5,11 @@
   <!-- - - - - - - - - - - - - - WHEEL PARAMETERS - - - - - - - - - - - - - -->
 
 
-  <xacro:property name = "wheel_mass" value = "2.2" />
+  <xacro:property name = "M_PI"         value="3.1415926535897931" />
+  <xacro:property name = "wheel_mass"   value = "2.2"              />
+  <xacro:property name = "wheel_radius" value = "0.0825"           />
+  <xacro:property name = "wheel_width"  value = "0.045"            />
+
 
 
   <!-- - - - - - - - - - - - - - RIGHT & LEFT INERTIA - - - - - - - - - - - - - -->
@@ -38,6 +42,22 @@
   </xacro:macro>
 
 
+  <!-- - - - - - - - - - - - - - RIGHT & LEFT COLLISION - - - - - - - - - - - - - -->
+
+  <xacro:macro name="origin_collision_selector" params = "wheel">
+
+    <xacro:if value = "${wheel.endswith('right')}">
+      <origin xyz="0 -0.007 0" rpy="${M_PI/2} 0 0" />
+    </xacro:if>
+
+    <xacro:if value = "${wheel.endswith('left')}">
+      <origin xyz="0 0.007 0"  rpy="${M_PI/2} 0 0" />
+    </xacro:if>
+
+  </xacro:macro>
+
+
+
 <!-- - - - - - - - - - - - - - WHEEL DEFINITION - - - - - - - - - - - - - -->
 
   <xacro:macro name ="rubber_wheel" params = "prefix parent *origin">
@@ -67,10 +87,9 @@
       </visual>
 
       <collision>
-        <origin xyz="0 0 0" rpy="1.57079632679 0 0" />
+        <origin_collision_selector wheel = "${prefix}" />
         <geometry>
-          <!-- <mesh_selector wheel = "${prefix}" extension = "_simple.stl" /> --> 
-          <cylinder length="0.04" radius="0.082"/>
+          <cylinder length="${wheel_width}" radius="${wheel_radius}" />
         </geometry>
       </collision>
 
