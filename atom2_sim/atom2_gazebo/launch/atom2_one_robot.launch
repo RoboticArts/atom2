@@ -48,6 +48,15 @@
 				-model $(arg robot_id) -param robot_description"/>
 
 
+		<!-- Start joystick pad -->
+		<include file="$(find roboticarts_pad)/launch/roboticarts_pad.launch">
+
+			<!-- Topic name -->
+			<arg name="cmd_vel"		 value="pad_teleop/cmd_vel"    />
+
+		</include>
+
+
 		<!-- Robot state publisher -->
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" 
 			respawn="false" output="screen" />
