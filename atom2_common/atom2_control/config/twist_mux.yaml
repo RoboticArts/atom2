@@ -1,9 +1,14 @@
 topics:
--
-  name    : general
+
+- name    : pad
+  topic   : pad_teleop/cmd_vel
+  timeout : 0.5
+  priority: 10
+
+- name    : general
   topic   : cmd_vel
   timeout : 0.5
-  priority: 50
+  priority: 1
 
 locks:
 - name    : emergency_stop
